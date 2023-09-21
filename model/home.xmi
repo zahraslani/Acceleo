@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy:System
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:proxy="http://www.mdse.org/proxy"
+    xsi:schemaLocation="http://www.mdse.org/proxy ../metamodel/proxy.ecore">
+  <mqtt host="tcp://localhost"
+      port="1883">
+    <message
+        topic="temperature"
+        write="//@coap/@resources.0/@write //@coap/@resources.1/@write"/>
+    <message
+        topic="curtain"/>
+    <message
+        topic="lamp"/>
+    <message
+        topic="smoke"
+        write="//@coap/@resources.3/@write //@coap/@resources.4/@write //@coap/@resources.5/@write"/>
+  </mqtt>
+  <gateway host="coap://localhost"
+      port="30456">
+    <resources
+        name="Cooler">
+      <read
+          proxyRead="//@coap/@resources.0/@read"/>
+      <write/>
+    </resources>
+    <resources
+        name="Heater">
+      <read
+          proxyRead="//@coap/@resources.1/@read"/>
+      <write/>
+    </resources>
+    <resources
+        name="Light">
+      <read
+          proxyRead="//@coap/@resources.2/@read"/>
+      <write
+          proxyWrite="//@coap/@resources.2/@write"
+          publish="curtain lamp"/>
+    </resources>
+    <resources
+        name="Window">
+      <read
+          proxyRead="//@coap/@resources.3/@read"/>
+      <write/>
+    </resources>
+    <resources
+        name="Alarm">
+      <read
+          proxyRead="//@coap/@resources.4/@read"/>
+      <write/>
+    </resources>
+    <resources
+        name="Extinguisher">
+      <read
+          proxyRead="//@coap/@resources.5/@read"/>
+      <write/>
+    </resources>
+  </gateway>
+  <coap host="coap://localhost"
+      port="5683">
+    <resources
+        name="Cooler">
+      <read/>
+      <write/>
+    </resources>
+    <resources
+        name="Heater">
+      <read/>
+      <write/>
+    </resources>
+    <resources
+        name="Light">
+      <read/>
+      <write/>
+    </resources>
+    <resources
+        name="Window">
+      <read/>
+      <write/>
+    </resources>
+    <resources
+        name="Alarm">
+      <read/>
+      <write/>
+    </resources>
+    <resources
+        name="Extinguisher">
+      <read/>
+      <write/>
+    </resources>
+  </coap>
+</proxy:System>

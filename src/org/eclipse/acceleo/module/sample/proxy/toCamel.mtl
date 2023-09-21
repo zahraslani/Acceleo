@@ -1,0 +1,7 @@
+[comment encoding = UTF-8 /]
+[module toCamel('http://www.mdse.org/proxy')/]
+
+[query public toCamelHump(arg0 : String) : String
+	= invoke('org.eclipse.acceleo.module.sample.proxy.Utilities', 'toCamelHump(java.lang.String)', Sequence{arg0})
+/]
+

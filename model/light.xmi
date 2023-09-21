@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy:System
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:proxy="http://www.mdse.org/proxy"
+    xsi:schemaLocation="http://www.mdse.org/proxy ../metamodel/proxy.ecore">
+  <mqtt host="mqtt.ir"
+      port="1">
+    <message
+        topic="candela"
+        write="//@coap/@resources.0/@write"/>
+  </mqtt>
+  <gateway host="gateway.ir"
+      port="2"/>
+  <coap host="coap.ir"
+      port="3">
+    <resources
+        name="light">
+      <read/>
+      <write/>
+    </resources>
+  </coap>
+</proxy:System>

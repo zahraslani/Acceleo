@@ -1,0 +1,1745 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mtl="http://www.eclipse.org/acceleo/mtl/3.0" xmlns:ocl.ecore="http://www.eclipse.org/ocl/1.1.0/Ecore">
+  <mtl:Module name="generateProxyResource" nsURI="org::eclipse::acceleo::module::sample::proxy::generateProxyResource" startHeaderPosition="29" endHeaderPosition="151">
+    <input>
+      <takesTypesFrom href="http://www.mdse.org/proxy#/"/>
+    </input>
+    <imports href="toCamel.emtl#/0"/>
+    <imports href="generateTranslator.emtl#/0"/>
+    <ownedModuleElement xsi:type="mtl:Template" name="generateProxyResource" visibility="Public">
+      <body xsi:type="mtl:LetBlock">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+        <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="package gateway&#xA;&#xA;import coap.getClient&#xA;import mqtt.mqttClient&#xA;import org.eclipse.californium.core.CoapHandler&#xA;import org.eclipse.californium.core.CoapResource&#xA;import org.eclipse.californium.core.CoapResponse&#xA;import org.eclipse.californium.core.server.resources.CoapExchange&#xA;import org.eclipse.paho.mqttv5.common.MqttMessage&#xA;"/>
+          <body xsi:type="mtl:LetBlock">
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="import translate.coapToGateway."/>
+            <body xsi:type="ocl.ecore:VariableExp" name="readTranslator" referredVariable="/0/generateProxyResource/%/%.1/%.1/readTranslator.1">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" as cg"/>
+            <body xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <source xsi:type="ocl.ecore:VariableExp" name="readTranslator" referredVariable="/0/generateProxyResource/%/%.1/%.1/readTranslator.1">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </source>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+            <body xsi:type="mtl:TemplateInvocation">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <definition href="generateTranslator.emtl#/0/generateTranslator"/>
+              <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/kotlin/translate/coapToGateway/index.kt">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </argument>
+              <argument xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapResource"/>
+                  <source xsi:type="ocl.ecore:PropertyCallExp">
+                    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapReadEndpoint"/>
+                    <source xsi:type="ocl.ecore:PropertyCallExp">
+                      <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyReadEndpoint"/>
+                      <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/12">
+                        <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+                      </source>
+                      <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyResource/read"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyReadEndpoint/proxyRead"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//CoapReadEndpoint/coapResource"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//CoapResource/name"/>
+              </argument>
+              <argument xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </argument>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+            <body xsi:type="mtl:ForBlock">
+              <body xsi:type="mtl:LetBlock">
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="import translate.gatewayToMqtt."/>
+                <body xsi:type="ocl.ecore:VariableExp" name="translator" referredVariable="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator.1">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" as gm"/>
+                <body xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="translator" referredVariable="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator.1">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  </source>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+                <letVariable name="translator">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <initExpression xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/+">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/+">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      <source xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      </source>
+                      <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="To">
+                        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      </argument>
+                    </source>
+                    <argument xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      <source xsi:type="mtl:QueryInvocation">
+                        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                        <definition href="toCamel.emtl#/0/toCamelHump"/>
+                        <argument xsi:type="ocl.ecore:PropertyCallExp">
+                          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                          <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/17">
+                            <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+                          </source>
+                          <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//MqttMessage/topic"/>
+                        </argument>
+                      </source>
+                    </argument>
+                  </initExpression>
+                </letVariable>
+              </body>
+              <body xsi:type="mtl:TemplateInvocation">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <definition href="generateTranslator.emtl#/0/generateTranslator"/>
+                <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/kotlin/translate/gatewayToMqtt/index.kt">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </argument>
+                <argument xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </argument>
+                <argument xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/20">
+                    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//MqttMessage/topic"/>
+                </argument>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+              <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/13/OrderedSet(MqttMessage)">
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyWriteEndpoint"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/14">
+                    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyResource/write"/>
+                </source>
+                <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyWriteEndpoint/publish"/>
+              </iterSet>
+              <each xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </each>
+            </body>
+            <body xsi:type="mtl:ForBlock">
+              <body xsi:type="mtl:LetBlock">
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="import translate.gatewayToCoap."/>
+                <body xsi:type="ocl.ecore:VariableExp" name="translator" referredVariable="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" as gc"/>
+                <body xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="translator" referredVariable="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  </source>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+                <letVariable name="translator">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <initExpression xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/+">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/+">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      <source xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      </source>
+                      <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="To">
+                        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      </argument>
+                    </source>
+                    <argument xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      <source xsi:type="mtl:QueryInvocation">
+                        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                        <definition href="toCamel.emtl#/0/toCamelHump"/>
+                        <argument xsi:type="ocl.ecore:PropertyCallExp">
+                          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                          <source xsi:type="ocl.ecore:PropertyCallExp">
+                            <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapResource"/>
+                            <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/26">
+                              <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+                            </source>
+                            <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//CoapWriteEndpoint/coapResource"/>
+                          </source>
+                          <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//CoapResource/name"/>
+                        </argument>
+                      </source>
+                    </argument>
+                  </initExpression>
+                </letVariable>
+              </body>
+              <body xsi:type="mtl:TemplateInvocation">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <definition href="generateTranslator.emtl#/0/generateTranslator"/>
+                <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/kotlin/translate/gatewayToCoap/index.kt">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </argument>
+                <argument xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </argument>
+                <argument xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:PropertyCallExp">
+                    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapResource"/>
+                    <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/29">
+                      <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//CoapWriteEndpoint/coapResource"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//CoapResource/name"/>
+                </argument>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+              <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/13/OrderedSet(CoapWriteEndpoint)">
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyWriteEndpoint"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/23">
+                    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyResource/write"/>
+                </source>
+                <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyWriteEndpoint/proxyWrite"/>
+              </iterSet>
+              <each xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </each>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="class "/>
+            <body xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <source xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </source>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" : CoapResource(&quot;"/>
+            <body xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&quot;) {&#xA;    init {&#xA;        attributes.title = name&#xA;    }&#xA;&#xA;    override fun handleGET(exchange: CoapExchange?) {&#xA;"/>
+            <body xsi:type="mtl:LetBlock">
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="        val "/>
+              <body xsi:type="ocl.ecore:VariableExp" name="readName" referredVariable="/0/generateProxyResource/%/%.1/%.1/%.12/readName.3">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" = String(getClient(&quot;"/>
+              <body xsi:type="ocl.ecore:VariableExp" name="readName" referredVariable="/0/generateProxyResource/%/%.1/%.1/%.12/readName.3">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&quot;).get().payload)&#xA;        exchange?.respond(cg"/>
+              <body xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="readTranslator" referredVariable="/0/generateProxyResource/%/%.1/%.1/readTranslator.1">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </source>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="("/>
+              <body xsi:type="ocl.ecore:VariableExp" name="readName" referredVariable="/0/generateProxyResource/%/%.1/%.1/%.12/readName.3">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="))&#xA;"/>
+              <letVariable name="readName">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <initExpression xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toLowerFirst">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="mtl:QueryInvocation">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    <definition href="toCamel.emtl#/0/toCamelHump"/>
+                    <argument xsi:type="ocl.ecore:PropertyCallExp">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      <source xsi:type="ocl.ecore:PropertyCallExp">
+                        <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapResource"/>
+                        <source xsi:type="ocl.ecore:PropertyCallExp">
+                          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapReadEndpoint"/>
+                          <source xsi:type="ocl.ecore:PropertyCallExp">
+                            <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyReadEndpoint"/>
+                            <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/34">
+                              <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+                            </source>
+                            <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyResource/read"/>
+                          </source>
+                          <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyReadEndpoint/proxyRead"/>
+                        </source>
+                        <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//CoapReadEndpoint/coapResource"/>
+                      </source>
+                      <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//CoapResource/name"/>
+                    </argument>
+                  </source>
+                </initExpression>
+              </letVariable>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="    }&#xA;&#xA;    override fun handle"/>
+            <body xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ecore:EEnum" href="http://www.mdse.org/proxy#//CoapWriteMethod"/>
+              <source xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyWriteEndpoint"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/39">
+                  <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+                </source>
+                <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyResource/write"/>
+              </source>
+              <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//ProxyWriteEndpoint/method"/>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="(exchange: CoapExchange?) {&#xA;        val "/>
+            <body xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" = exchange?.requestText ?: return&#xA;"/>
+            <body xsi:type="mtl:ForBlock">
+              <body xsi:type="mtl:LetBlock">
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="        mqttClient.publish(&quot;"/>
+                <body xsi:type="ocl.ecore:VariableExp" name="topic" referredVariable="/0/generateProxyResource/%/%.1/%.1/%.17/%/topic.1">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&quot;, MqttMessage(gm"/>
+                <body xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  </source>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="To"/>
+                <body xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="topic" referredVariable="/0/generateProxyResource/%/%.1/%.1/%.17/%/topic.1">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  </source>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="("/>
+                <body xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=").toByteArray()))&#xA;"/>
+                <letVariable name="topic">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <initExpression xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toLowerFirst">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    <source xsi:type="mtl:QueryInvocation">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      <definition href="toCamel.emtl#/0/toCamelHump"/>
+                      <argument xsi:type="ocl.ecore:PropertyCallExp">
+                        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                        <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/44">
+                          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+                        </source>
+                        <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//MqttMessage/topic"/>
+                      </argument>
+                    </source>
+                  </initExpression>
+                </letVariable>
+              </body>
+              <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/13/OrderedSet(MqttMessage)">
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyWriteEndpoint"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/41">
+                    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyResource/write"/>
+                </source>
+                <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyWriteEndpoint/publish"/>
+              </iterSet>
+              <each xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </each>
+            </body>
+            <body xsi:type="mtl:ForBlock">
+              <body xsi:type="mtl:LetBlock">
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="        getClient(&quot;"/>
+                <body xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toLowerFirst">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="coapName" referredVariable="/0/generateProxyResource/%/%.1/%.1/%.18/%/coapName">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  </source>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&quot;)."/>
+                <body xsi:type="ocl.ecore:OperationCallExp">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_OclAny_Class/toString">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    <source xsi:type="ocl.ecore:PropertyCallExp">
+                      <eType xsi:type="ecore:EEnum" href="http://www.mdse.org/proxy#//CoapWriteMethod"/>
+                      <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/56">
+                        <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+                      </source>
+                      <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//CoapWriteEndpoint/method"/>
+                    </source>
+                  </source>
+                  <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String_Class/toLowerCase"/>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="(object : CoapHandler {&#xA;            override fun onLoad(p0: CoapResponse?) {&#xA;            }&#xA;&#xA;            override fun onError() {&#xA;            }&#xA;        }, gc"/>
+                <body xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  </source>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="To"/>
+                <body xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="coapName" referredVariable="/0/generateProxyResource/%/%.1/%.1/%.18/%/coapName">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  </source>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="("/>
+                <body xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=").toByteArray(), 0)&#xA;"/>
+                <letVariable name="coapName">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <initExpression xsi:type="mtl:QueryInvocation">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    <definition href="toCamel.emtl#/0/toCamelHump"/>
+                    <argument xsi:type="ocl.ecore:PropertyCallExp">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      <source xsi:type="ocl.ecore:PropertyCallExp">
+                        <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapResource"/>
+                        <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/54">
+                          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+                        </source>
+                        <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//CoapWriteEndpoint/coapResource"/>
+                      </source>
+                      <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//CoapResource/name"/>
+                    </argument>
+                  </initExpression>
+                </letVariable>
+              </body>
+              <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/13/OrderedSet(CoapWriteEndpoint)">
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyWriteEndpoint"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/51">
+                    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyResource/write"/>
+                </source>
+                <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyWriteEndpoint/proxyWrite"/>
+              </iterSet>
+              <each xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </each>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="    }&#xA;}&#xA;"/>
+            <letVariable name="readTranslator">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <initExpression xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/+">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/+">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toLowerFirst">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    <source xsi:type="mtl:QueryInvocation">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      <definition href="toCamel.emtl#/0/toCamelHump"/>
+                      <argument xsi:type="ocl.ecore:PropertyCallExp">
+                        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                        <source xsi:type="ocl.ecore:PropertyCallExp">
+                          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapResource"/>
+                          <source xsi:type="ocl.ecore:PropertyCallExp">
+                            <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapReadEndpoint"/>
+                            <source xsi:type="ocl.ecore:PropertyCallExp">
+                              <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyReadEndpoint"/>
+                              <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/9">
+                                <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+                              </source>
+                              <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyResource/read"/>
+                            </source>
+                            <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//ProxyReadEndpoint/proxyRead"/>
+                          </source>
+                          <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//CoapReadEndpoint/coapResource"/>
+                        </source>
+                        <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//CoapResource/name"/>
+                      </argument>
+                    </source>
+                  </source>
+                  <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="To">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  </argument>
+                </source>
+                <argument xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toUpperFirst">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  </source>
+                </argument>
+              </initExpression>
+            </letVariable>
+          </body>
+          <fileUrl xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/+">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/+">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <source xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/kotlin/gateway/">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </source>
+              <argument xsi:type="ocl.ecore:VariableExp" name="resourceName" referredVariable="/0/generateProxyResource/%/resourceName">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </argument>
+            </source>
+            <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=".kt">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            </argument>
+          </fileUrl>
+          <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          </charset>
+        </body>
+        <letVariable name="resourceName">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          <initExpression xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toLowerFirst">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="mtl:QueryInvocation">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <definition href="toCamel.emtl#/0/toCamelHump"/>
+              <argument xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/6">
+                  <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//ProxyResource/name"/>
+              </argument>
+            </source>
+          </initExpression>
+        </letVariable>
+      </body>
+      <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+      <parameter name="aProxyResource">
+        <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+      </parameter>
+    </ownedModuleElement>
+  </mtl:Module>
+  <ecore:EPackage name="additions">
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_String_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eAnnotations>
+      <eOperations name="toUpperFirst">
+        <eAnnotations source="MTL"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eOperations>
+      <eOperations name="toLowerFirst">
+        <eAnnotations source="MTL"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eOperations>
+      <eOperations name="+">
+        <eAnnotations source="MTL non-standard"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="other">
+          <eType xsi:type="ocl.ecore:AnyType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Integer_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Real_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Real"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ecore_EObject_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eAnnotations>
+      <eOperations name="generateProxyResource">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL" references="/0/generateProxyResource"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="aProxyResource">
+          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="toCamelHump">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL">
+          <references href="toCamel.emtl#/0/toCamelHump"/>
+        </eAnnotations>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="arg0">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="generateTranslator">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL">
+          <references href="generateTranslator.emtl#/0/generateTranslator"/>
+        </eAnnotations>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="path">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </eParameters>
+        <eParameters name="source">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </eParameters>
+        <eParameters name="target">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OclAny_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+      </eAnnotations>
+      <eOperations name="toString">
+        <eAnnotations source="MTL non-standard"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Collection(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Collection(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Sequence(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Sequence(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OrderedSet(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="proxy_ProxyResource_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.mdse.org/proxy#//ProxyResource"/>
+      </eAnnotations>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ecore:EPackage name="collections">
+    <eClassifiers xsi:type="ocl.ecore:OrderedSetType" name="OrderedSet(MqttMessage)" instanceClassName="java.util.LinkedHashSet">
+      <elementType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:OrderedSetType" name="OrderedSet(CoapWriteEndpoint)" instanceClassName="java.util.LinkedHashSet">
+      <elementType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//CoapWriteEndpoint"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//ProxyResource"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ecore:EAnnotation source="positions">
+    <eAnnotations source="positions.0" references="/0/generateProxyResource">
+      <details key="start" value="232"/>
+      <details key="end" value="3103"/>
+      <details key="line" value="7"/>
+    </eAnnotations>
+    <eAnnotations source="positions.1" references="/0/generateProxyResource/%">
+      <details key="start" value="304"/>
+      <details key="end" value="3090"/>
+      <details key="line" value="8"/>
+    </eAnnotations>
+    <eAnnotations source="positions.2" references="/0/generateProxyResource/%/%">
+      <details key="start" value="367"/>
+      <details key="end" value="368"/>
+      <details key="line" value="9"/>
+    </eAnnotations>
+    <eAnnotations source="positions.3" references="/0/generateProxyResource/%/%.1">
+      <details key="start" value="368"/>
+      <details key="end" value="3083"/>
+      <details key="line" value="10"/>
+    </eAnnotations>
+    <eAnnotations source="positions.4" references="/0/generateProxyResource/%/%.1/%">
+      <details key="start" value="444"/>
+      <details key="end" value="768"/>
+      <details key="line" value="11"/>
+    </eAnnotations>
+    <eAnnotations source="positions.5" references="/0/generateProxyResource/%/%.1/%.1">
+      <details key="start" value="768"/>
+      <details key="end" value="3075"/>
+      <details key="line" value="20"/>
+    </eAnnotations>
+    <eAnnotations source="positions.6" references="/0/generateProxyResource/%/%.1/%.1/%">
+      <details key="start" value="898"/>
+      <details key="end" value="929"/>
+      <details key="line" value="21"/>
+    </eAnnotations>
+    <eAnnotations source="positions.7" references="/0/generateProxyResource/%/%.1/%.1/readTranslator">
+      <details key="start" value="930"/>
+      <details key="end" value="944"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.8" references="/0/generateProxyResource/%/%.1/%.1/%.1">
+      <details key="start" value="947"/>
+      <details key="end" value="953"/>
+      <details key="line" value="21"/>
+    </eAnnotations>
+    <eAnnotations source="positions.9" references="/0/generateProxyResource/%/%.1/%.1/%.2">
+      <details key="start" value="954"/>
+      <details key="end" value="983"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.10" references="/0/generateProxyResource/%/%.1/%.1/%.2/readTranslator">
+      <details key="start" value="954"/>
+      <details key="end" value="968"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.11" references="/0/generateProxyResource/%/%.1/%.1/%.3">
+      <details key="start" value="986"/>
+      <details key="end" value="987"/>
+      <details key="line" value="22"/>
+    </eAnnotations>
+    <eAnnotations source="positions.12" references="/0/generateProxyResource/%/%.1/%.1/%.4">
+      <details key="start" value="988"/>
+      <details key="end" value="1107"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.13" references="/0/generateProxyResource/%/%.1/%.1/%.4/%">
+      <details key="start" value="1007"/>
+      <details key="end" value="1058"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.14" references="/0/generateProxyResource/%/%.1/%.1/%.4/%.1">
+      <details key="start" value="1060"/>
+      <details key="end" value="1092"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.15" references="/0/generateProxyResource/%/%.1/%.1/%.4/%.1/%">
+      <details key="start" value="1060"/>
+      <details key="end" value="1087"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.16" references="/0/generateProxyResource/%/%.1/%.1/%.4/%.1/%/%">
+      <details key="start" value="1060"/>
+      <details key="end" value="1074"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.17" references="/0/generateProxyResource/%/%.1/%.1/%.4/%.1/%/%/%">
+      <details key="start" value="1060"/>
+      <details key="end" value="1064"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.18" references="/0/generateProxyResource/%/%.1/%.1/%.4/%.1/%/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.19" references="/0/generateProxyResource/%/%.1/%.1/%.4/resourceName">
+      <details key="start" value="1094"/>
+      <details key="end" value="1106"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.20" references="/0/generateProxyResource/%/%.1/%.1/%.5">
+      <details key="start" value="1110"/>
+      <details key="end" value="1111"/>
+      <details key="line" value="23"/>
+    </eAnnotations>
+    <eAnnotations source="positions.21" references="/0/generateProxyResource/%/%.1/%.1/%.6">
+      <details key="start" value="1111"/>
+      <details key="end" value="1426"/>
+      <details key="line" value="23"/>
+    </eAnnotations>
+    <eAnnotations source="positions.22" references="/0/generateProxyResource/%/%.1/%.1/%.6/%">
+      <details key="start" value="1150"/>
+      <details key="end" value="1322"/>
+      <details key="line" value="24"/>
+    </eAnnotations>
+    <eAnnotations source="positions.23" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/%">
+      <details key="start" value="1234"/>
+      <details key="end" value="1265"/>
+      <details key="line" value="25"/>
+    </eAnnotations>
+    <eAnnotations source="positions.24" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator">
+      <details key="start" value="1266"/>
+      <details key="end" value="1276"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.25" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/%.1">
+      <details key="start" value="1279"/>
+      <details key="end" value="1285"/>
+      <details key="line" value="25"/>
+    </eAnnotations>
+    <eAnnotations source="positions.26" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/%.2">
+      <details key="start" value="1286"/>
+      <details key="end" value="1311"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.27" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/%.2/translator">
+      <details key="start" value="1286"/>
+      <details key="end" value="1296"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.28" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/%.3">
+      <details key="start" value="1314"/>
+      <details key="end" value="1315"/>
+      <details key="line" value="26"/>
+    </eAnnotations>
+    <eAnnotations source="positions.29" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator.1">
+      <details key="start" value="1155"/>
+      <details key="end" value="1232"/>
+      <details key="line" value="24"/>
+    </eAnnotations>
+    <eAnnotations source="positions.30" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator.1/%">
+      <details key="start" value="1177"/>
+      <details key="end" value="1233"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.31" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator.1/%/%">
+      <details key="start" value="1177"/>
+      <details key="end" value="1196"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.32" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator.1/%/%/resourceName">
+      <details key="start" value="1177"/>
+      <details key="end" value="1189"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.33" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator.1/%/%/%">
+      <details key="start" value="1192"/>
+      <details key="end" value="1196"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.34" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator.1/%/%.1">
+      <details key="start" value="1199"/>
+      <details key="end" value="1233"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.35" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator.1/%/%.1/%">
+      <details key="start" value="1199"/>
+      <details key="end" value="1218"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.36" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator.1/%/%.1/%/%">
+      <details key="start" value="1199"/>
+      <details key="end" value="1204"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.37" references="/0/generateProxyResource/%/%.1/%.1/%.6/%/translator.1/%/%.1/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.38" references="/0/generateProxyResource/%/%.1/%.1/%.6/%.1">
+      <details key="start" value="1324"/>
+      <details key="end" value="1416"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.39" references="/0/generateProxyResource/%/%.1/%.1/%.6/%.1/%">
+      <details key="start" value="1343"/>
+      <details key="end" value="1394"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.40" references="/0/generateProxyResource/%/%.1/%.1/%.6/%.1/resourceName">
+      <details key="start" value="1396"/>
+      <details key="end" value="1408"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.41" references="/0/generateProxyResource/%/%.1/%.1/%.6/%.1/%.1">
+      <details key="start" value="1410"/>
+      <details key="end" value="1415"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.42" references="/0/generateProxyResource/%/%.1/%.1/%.6/%.1/%.1/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.43" references="/0/generateProxyResource/%/%.1/%.1/%.6/%.2">
+      <details key="start" value="1419"/>
+      <details key="end" value="1420"/>
+      <details key="line" value="28"/>
+    </eAnnotations>
+    <eAnnotations source="positions.44" references="/0/generateProxyResource/%/%.1/%.1/%.6/%.3">
+      <details key="start" value="1117"/>
+      <details key="end" value="1130"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.45" references="/0/generateProxyResource/%/%.1/%.1/%.6/%.3/%">
+      <details key="start" value="1117"/>
+      <details key="end" value="1122"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.46" references="/0/generateProxyResource/%/%.1/%.1/%.6/%.3/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.47" references="/0/generateProxyResource/%/%.1/%.1/%.6/%.4">
+      <details key="start" value="1142"/>
+      <details key="end" value="1146"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.48" references="/0/generateProxyResource/%/%.1/%.1/%.7">
+      <details key="start" value="1427"/>
+      <details key="end" value="1769"/>
+      <details key="line" value="29"/>
+    </eAnnotations>
+    <eAnnotations source="positions.49" references="/0/generateProxyResource/%/%.1/%.1/%.7/%">
+      <details key="start" value="1469"/>
+      <details key="end" value="1653"/>
+      <details key="line" value="30"/>
+    </eAnnotations>
+    <eAnnotations source="positions.50" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/%">
+      <details key="start" value="1565"/>
+      <details key="end" value="1596"/>
+      <details key="line" value="31"/>
+    </eAnnotations>
+    <eAnnotations source="positions.51" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator">
+      <details key="start" value="1597"/>
+      <details key="end" value="1607"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.52" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/%.1">
+      <details key="start" value="1610"/>
+      <details key="end" value="1616"/>
+      <details key="line" value="31"/>
+    </eAnnotations>
+    <eAnnotations source="positions.53" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/%.2">
+      <details key="start" value="1617"/>
+      <details key="end" value="1642"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.54" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/%.2/translator">
+      <details key="start" value="1617"/>
+      <details key="end" value="1627"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.55" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/%.3">
+      <details key="start" value="1645"/>
+      <details key="end" value="1646"/>
+      <details key="line" value="32"/>
+    </eAnnotations>
+    <eAnnotations source="positions.56" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1">
+      <details key="start" value="1474"/>
+      <details key="end" value="1563"/>
+      <details key="line" value="30"/>
+    </eAnnotations>
+    <eAnnotations source="positions.57" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1/%">
+      <details key="start" value="1496"/>
+      <details key="end" value="1564"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.58" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1/%/%">
+      <details key="start" value="1496"/>
+      <details key="end" value="1515"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.59" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1/%/%/resourceName">
+      <details key="start" value="1496"/>
+      <details key="end" value="1508"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.60" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1/%/%/%">
+      <details key="start" value="1511"/>
+      <details key="end" value="1515"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.61" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1/%/%.1">
+      <details key="start" value="1518"/>
+      <details key="end" value="1564"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.62" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1/%/%.1/%">
+      <details key="start" value="1518"/>
+      <details key="end" value="1549"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.63" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1/%/%.1/%/%">
+      <details key="start" value="1518"/>
+      <details key="end" value="1535"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.64" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1/%/%.1/%/%/%">
+      <details key="start" value="1518"/>
+      <details key="end" value="1530"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.65" references="/0/generateProxyResource/%/%.1/%.1/%.7/%/translator.1/%/%.1/%/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.66" references="/0/generateProxyResource/%/%.1/%.1/%.7/%.1">
+      <details key="start" value="1655"/>
+      <details key="end" value="1759"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.67" references="/0/generateProxyResource/%/%.1/%.1/%.7/%.1/%">
+      <details key="start" value="1674"/>
+      <details key="end" value="1725"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.68" references="/0/generateProxyResource/%/%.1/%.1/%.7/%.1/resourceName">
+      <details key="start" value="1727"/>
+      <details key="end" value="1739"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.69" references="/0/generateProxyResource/%/%.1/%.1/%.7/%.1/%.1">
+      <details key="start" value="1741"/>
+      <details key="end" value="1758"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.70" references="/0/generateProxyResource/%/%.1/%.1/%.7/%.1/%.1/%">
+      <details key="start" value="1741"/>
+      <details key="end" value="1753"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.71" references="/0/generateProxyResource/%/%.1/%.1/%.7/%.1/%.1/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.72" references="/0/generateProxyResource/%/%.1/%.1/%.7/%.2">
+      <details key="start" value="1762"/>
+      <details key="end" value="1763"/>
+      <details key="line" value="34"/>
+    </eAnnotations>
+    <eAnnotations source="positions.73" references="/0/generateProxyResource/%/%.1/%.1/%.7/%.3">
+      <details key="start" value="1433"/>
+      <details key="end" value="1449"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.74" references="/0/generateProxyResource/%/%.1/%.1/%.7/%.3/%">
+      <details key="start" value="1433"/>
+      <details key="end" value="1438"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.75" references="/0/generateProxyResource/%/%.1/%.1/%.7/%.3/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.76" references="/0/generateProxyResource/%/%.1/%.1/%.7/%.4">
+      <details key="start" value="1461"/>
+      <details key="end" value="1465"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.77" references="/0/generateProxyResource/%/%.1/%.1/%.8">
+      <details key="start" value="1770"/>
+      <details key="end" value="1776"/>
+      <details key="line" value="35"/>
+    </eAnnotations>
+    <eAnnotations source="positions.78" references="/0/generateProxyResource/%/%.1/%.1/%.9">
+      <details key="start" value="1777"/>
+      <details key="end" value="1804"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.79" references="/0/generateProxyResource/%/%.1/%.1/%.9/resourceName">
+      <details key="start" value="1777"/>
+      <details key="end" value="1789"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.80" references="/0/generateProxyResource/%/%.1/%.1/%.10">
+      <details key="start" value="1807"/>
+      <details key="end" value="1824"/>
+      <details key="line" value="35"/>
+    </eAnnotations>
+    <eAnnotations source="positions.81" references="/0/generateProxyResource/%/%.1/%.1/resourceName">
+      <details key="start" value="1825"/>
+      <details key="end" value="1837"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.82" references="/0/generateProxyResource/%/%.1/%.1/%.11">
+      <details key="start" value="1840"/>
+      <details key="end" value="1949"/>
+      <details key="line" value="35"/>
+    </eAnnotations>
+    <eAnnotations source="positions.83" references="/0/generateProxyResource/%/%.1/%.1/%.12">
+      <details key="start" value="1951"/>
+      <details key="end" value="2198"/>
+      <details key="line" value="41"/>
+    </eAnnotations>
+    <eAnnotations source="positions.84" references="/0/generateProxyResource/%/%.1/%.1/%.12/%">
+      <details key="start" value="2038"/>
+      <details key="end" value="2050"/>
+      <details key="line" value="42"/>
+    </eAnnotations>
+    <eAnnotations source="positions.85" references="/0/generateProxyResource/%/%.1/%.1/%.12/readName">
+      <details key="start" value="2051"/>
+      <details key="end" value="2059"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.86" references="/0/generateProxyResource/%/%.1/%.1/%.12/%.1">
+      <details key="start" value="2062"/>
+      <details key="end" value="2083"/>
+      <details key="line" value="42"/>
+    </eAnnotations>
+    <eAnnotations source="positions.87" references="/0/generateProxyResource/%/%.1/%.1/%.12/readName.1">
+      <details key="start" value="2084"/>
+      <details key="end" value="2092"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.88" references="/0/generateProxyResource/%/%.1/%.1/%.12/%.2">
+      <details key="start" value="2095"/>
+      <details key="end" value="2141"/>
+      <details key="line" value="42"/>
+    </eAnnotations>
+    <eAnnotations source="positions.89" references="/0/generateProxyResource/%/%.1/%.1/%.12/%.3">
+      <details key="start" value="2142"/>
+      <details key="end" value="2171"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.90" references="/0/generateProxyResource/%/%.1/%.1/%.12/%.3/readTranslator">
+      <details key="start" value="2142"/>
+      <details key="end" value="2156"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.91" references="/0/generateProxyResource/%/%.1/%.1/%.12/%.4">
+      <details key="start" value="2174"/>
+      <details key="end" value="2175"/>
+      <details key="line" value="43"/>
+    </eAnnotations>
+    <eAnnotations source="positions.92" references="/0/generateProxyResource/%/%.1/%.1/%.12/readName.2">
+      <details key="start" value="2176"/>
+      <details key="end" value="2184"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.93" references="/0/generateProxyResource/%/%.1/%.1/%.12/%.5">
+      <details key="start" value="2187"/>
+      <details key="end" value="2190"/>
+      <details key="line" value="43"/>
+    </eAnnotations>
+    <eAnnotations source="positions.94" references="/0/generateProxyResource/%/%.1/%.1/%.12/readName.3">
+      <details key="start" value="1956"/>
+      <details key="end" value="2036"/>
+      <details key="line" value="41"/>
+    </eAnnotations>
+    <eAnnotations source="positions.95" references="/0/generateProxyResource/%/%.1/%.1/%.12/readName.3/%">
+      <details key="start" value="1976"/>
+      <details key="end" value="2037"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.96" references="/0/generateProxyResource/%/%.1/%.1/%.12/readName.3/%/%">
+      <details key="start" value="1976"/>
+      <details key="end" value="2022"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.97" references="/0/generateProxyResource/%/%.1/%.1/%.12/readName.3/%/%/%">
+      <details key="start" value="1976"/>
+      <details key="end" value="2008"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.98" references="/0/generateProxyResource/%/%.1/%.1/%.12/readName.3/%/%/%/%">
+      <details key="start" value="1976"/>
+      <details key="end" value="2003"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.99" references="/0/generateProxyResource/%/%.1/%.1/%.12/readName.3/%/%/%/%/%">
+      <details key="start" value="1976"/>
+      <details key="end" value="1990"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.100" references="/0/generateProxyResource/%/%.1/%.1/%.12/readName.3/%/%/%/%/%/%">
+      <details key="start" value="1976"/>
+      <details key="end" value="1980"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.101" references="/0/generateProxyResource/%/%.1/%.1/%.12/readName.3/%/%/%/%/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.102" references="/0/generateProxyResource/%/%.1/%.1/%.13">
+      <details key="start" value="2199"/>
+      <details key="end" value="2229"/>
+      <details key="line" value="45"/>
+    </eAnnotations>
+    <eAnnotations source="positions.103" references="/0/generateProxyResource/%/%.1/%.1/%.14">
+      <details key="start" value="2230"/>
+      <details key="end" value="2242"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.104" references="/0/generateProxyResource/%/%.1/%.1/%.14/%">
+      <details key="start" value="2230"/>
+      <details key="end" value="2235"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.105" references="/0/generateProxyResource/%/%.1/%.1/%.14/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.106" references="/0/generateProxyResource/%/%.1/%.1/%.15">
+      <details key="start" value="2245"/>
+      <details key="end" value="2285"/>
+      <details key="line" value="47"/>
+    </eAnnotations>
+    <eAnnotations source="positions.107" references="/0/generateProxyResource/%/%.1/%.1/resourceName.1">
+      <details key="start" value="2286"/>
+      <details key="end" value="2298"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.108" references="/0/generateProxyResource/%/%.1/%.1/%.16">
+      <details key="start" value="2301"/>
+      <details key="end" value="2336"/>
+      <details key="line" value="48"/>
+    </eAnnotations>
+    <eAnnotations source="positions.109" references="/0/generateProxyResource/%/%.1/%.1/%.17">
+      <details key="start" value="2338"/>
+      <details key="end" value="2600"/>
+      <details key="line" value="49"/>
+    </eAnnotations>
+    <eAnnotations source="positions.110" references="/0/generateProxyResource/%/%.1/%.1/%.17/%">
+      <details key="start" value="2379"/>
+      <details key="end" value="2591"/>
+      <details key="line" value="50"/>
+    </eAnnotations>
+    <eAnnotations source="positions.111" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/%">
+      <details key="start" value="2436"/>
+      <details key="end" value="2464"/>
+      <details key="line" value="51"/>
+    </eAnnotations>
+    <eAnnotations source="positions.112" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/topic">
+      <details key="start" value="2465"/>
+      <details key="end" value="2470"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.113" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/%.1">
+      <details key="start" value="2473"/>
+      <details key="end" value="2490"/>
+      <details key="line" value="51"/>
+    </eAnnotations>
+    <eAnnotations source="positions.114" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/%.2">
+      <details key="start" value="2491"/>
+      <details key="end" value="2518"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.115" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/%.2/resourceName">
+      <details key="start" value="2491"/>
+      <details key="end" value="2503"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.116" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/%.3">
+      <details key="start" value="2521"/>
+      <details key="end" value="2523"/>
+      <details key="line" value="51"/>
+    </eAnnotations>
+    <eAnnotations source="positions.117" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/%.4">
+      <details key="start" value="2524"/>
+      <details key="end" value="2544"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.118" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/%.4/topic">
+      <details key="start" value="2524"/>
+      <details key="end" value="2529"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.119" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/%.5">
+      <details key="start" value="2547"/>
+      <details key="end" value="2548"/>
+      <details key="line" value="51"/>
+    </eAnnotations>
+    <eAnnotations source="positions.120" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/resourceName">
+      <details key="start" value="2549"/>
+      <details key="end" value="2561"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.121" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/%.6">
+      <details key="start" value="2564"/>
+      <details key="end" value="2582"/>
+      <details key="line" value="51"/>
+    </eAnnotations>
+    <eAnnotations source="positions.122" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/topic.1">
+      <details key="start" value="2384"/>
+      <details key="end" value="2434"/>
+      <details key="line" value="50"/>
+    </eAnnotations>
+    <eAnnotations source="positions.123" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/topic.1/%">
+      <details key="start" value="2401"/>
+      <details key="end" value="2435"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.124" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/topic.1/%/%">
+      <details key="start" value="2401"/>
+      <details key="end" value="2420"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.125" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/topic.1/%/%/%">
+      <details key="start" value="2401"/>
+      <details key="end" value="2406"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.126" references="/0/generateProxyResource/%/%.1/%.1/%.17/%/topic.1/%/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.127" references="/0/generateProxyResource/%/%.1/%.1/%.17/%.1">
+      <details key="start" value="2344"/>
+      <details key="end" value="2357"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.128" references="/0/generateProxyResource/%/%.1/%.1/%.17/%.1/%">
+      <details key="start" value="2344"/>
+      <details key="end" value="2349"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.129" references="/0/generateProxyResource/%/%.1/%.1/%.17/%.1/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.130" references="/0/generateProxyResource/%/%.1/%.1/%.17/%.2">
+      <details key="start" value="2369"/>
+      <details key="end" value="2373"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.131" references="/0/generateProxyResource/%/%.1/%.1/%.18">
+      <details key="start" value="2603"/>
+      <details key="end" value="3059"/>
+      <details key="line" value="54"/>
+    </eAnnotations>
+    <eAnnotations source="positions.132" references="/0/generateProxyResource/%/%.1/%.1/%.18/%">
+      <details key="start" value="2647"/>
+      <details key="end" value="3050"/>
+      <details key="line" value="55"/>
+    </eAnnotations>
+    <eAnnotations source="positions.133" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%">
+      <details key="start" value="2704"/>
+      <details key="end" value="2723"/>
+      <details key="line" value="56"/>
+    </eAnnotations>
+    <eAnnotations source="positions.134" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.1">
+      <details key="start" value="2724"/>
+      <details key="end" value="2747"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.135" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.1/coapName">
+      <details key="start" value="2724"/>
+      <details key="end" value="2732"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.136" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.2">
+      <details key="start" value="2750"/>
+      <details key="end" value="2753"/>
+      <details key="line" value="56"/>
+    </eAnnotations>
+    <eAnnotations source="positions.137" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.3">
+      <details key="start" value="2754"/>
+      <details key="end" value="2785"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.138" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.3/%">
+      <details key="start" value="2754"/>
+      <details key="end" value="2771"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.139" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.3/%/%">
+      <details key="start" value="2754"/>
+      <details key="end" value="2760"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.140" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.3/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.141" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.4">
+      <details key="start" value="2788"/>
+      <details key="end" value="2944"/>
+      <details key="line" value="56"/>
+    </eAnnotations>
+    <eAnnotations source="positions.142" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.5">
+      <details key="start" value="2945"/>
+      <details key="end" value="2972"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.143" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.5/resourceName">
+      <details key="start" value="2945"/>
+      <details key="end" value="2957"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.144" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.6">
+      <details key="start" value="2975"/>
+      <details key="end" value="2977"/>
+      <details key="line" value="62"/>
+    </eAnnotations>
+    <eAnnotations source="positions.145" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.7">
+      <details key="start" value="2978"/>
+      <details key="end" value="3001"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.146" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.7/coapName">
+      <details key="start" value="2978"/>
+      <details key="end" value="2986"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.147" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.8">
+      <details key="start" value="3004"/>
+      <details key="end" value="3005"/>
+      <details key="line" value="62"/>
+    </eAnnotations>
+    <eAnnotations source="positions.148" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/resourceName">
+      <details key="start" value="3006"/>
+      <details key="end" value="3018"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.149" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/%.9">
+      <details key="start" value="3021"/>
+      <details key="end" value="3041"/>
+      <details key="line" value="62"/>
+    </eAnnotations>
+    <eAnnotations source="positions.150" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/coapName">
+      <details key="start" value="2652"/>
+      <details key="end" value="2702"/>
+      <details key="line" value="55"/>
+    </eAnnotations>
+    <eAnnotations source="positions.151" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/coapName/%">
+      <details key="start" value="2672"/>
+      <details key="end" value="2703"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.152" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/coapName/%/%">
+      <details key="start" value="2672"/>
+      <details key="end" value="2689"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.153" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/coapName/%/%/%">
+      <details key="start" value="2672"/>
+      <details key="end" value="2684"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.154" references="/0/generateProxyResource/%/%.1/%.1/%.18/%/coapName/%/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.155" references="/0/generateProxyResource/%/%.1/%.1/%.18/%.1">
+      <details key="start" value="2609"/>
+      <details key="end" value="2625"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.156" references="/0/generateProxyResource/%/%.1/%.1/%.18/%.1/%">
+      <details key="start" value="2609"/>
+      <details key="end" value="2614"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.157" references="/0/generateProxyResource/%/%.1/%.1/%.18/%.1/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.158" references="/0/generateProxyResource/%/%.1/%.1/%.18/%.2">
+      <details key="start" value="2637"/>
+      <details key="end" value="2641"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.159" references="/0/generateProxyResource/%/%.1/%.1/%.19">
+      <details key="start" value="3060"/>
+      <details key="end" value="3068"/>
+      <details key="line" value="65"/>
+    </eAnnotations>
+    <eAnnotations source="positions.160" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1">
+      <details key="start" value="773"/>
+      <details key="end" value="896"/>
+      <details key="line" value="20"/>
+    </eAnnotations>
+    <eAnnotations source="positions.161" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%">
+      <details key="start" value="799"/>
+      <details key="end" value="897"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.162" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%/%">
+      <details key="start" value="799"/>
+      <details key="end" value="867"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.163" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%/%/%">
+      <details key="start" value="799"/>
+      <details key="end" value="860"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.164" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%/%/%/%">
+      <details key="start" value="799"/>
+      <details key="end" value="845"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.165" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%/%/%/%/%">
+      <details key="start" value="799"/>
+      <details key="end" value="831"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.166" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%/%/%/%/%/%">
+      <details key="start" value="799"/>
+      <details key="end" value="826"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.167" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%/%/%/%/%/%/%">
+      <details key="start" value="799"/>
+      <details key="end" value="813"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.168" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%/%/%/%/%/%/%/%">
+      <details key="start" value="799"/>
+      <details key="end" value="803"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.169" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%/%/%/%/%/%/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.170" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%/%/%.1">
+      <details key="start" value="863"/>
+      <details key="end" value="867"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.171" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%/%.1">
+      <details key="start" value="870"/>
+      <details key="end" value="897"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.172" references="/0/generateProxyResource/%/%.1/%.1/readTranslator.1/%/%.1/resourceName">
+      <details key="start" value="870"/>
+      <details key="end" value="882"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.173" references="/0/generateProxyResource/%/%.1/%.2">
+      <details key="start" value="375"/>
+      <details key="end" value="425"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.174" references="/0/generateProxyResource/%/%.1/%.2/%">
+      <details key="start" value="375"/>
+      <details key="end" value="417"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.175" references="/0/generateProxyResource/%/%.1/%.2/%/%">
+      <details key="start" value="375"/>
+      <details key="end" value="402"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.176" references="/0/generateProxyResource/%/%.1/%.2/%/resourceName">
+      <details key="start" value="405"/>
+      <details key="end" value="417"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.177" references="/0/generateProxyResource/%/%.1/%.2/%.1">
+      <details key="start" value="420"/>
+      <details key="end" value="425"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.178" references="/0/generateProxyResource/%/%.1/%.3">
+      <details key="start" value="434"/>
+      <details key="end" value="441"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.179" references="/0/generateProxyResource/%/resourceName">
+      <details key="start" value="309"/>
+      <details key="end" value="365"/>
+      <details key="line" value="8"/>
+    </eAnnotations>
+    <eAnnotations source="positions.180" references="/0/generateProxyResource/%/resourceName/%">
+      <details key="start" value="333"/>
+      <details key="end" value="366"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.181" references="/0/generateProxyResource/%/resourceName/%/%">
+      <details key="start" value="333"/>
+      <details key="end" value="351"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.182" references="/0/generateProxyResource/%/resourceName/%/%/%">
+      <details key="start" value="333"/>
+      <details key="end" value="337"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.183" references="/0/generateProxyResource/%/resourceName/%/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.184" references="/0/generateProxyResource/%.1">
+      <details key="start" value="3091"/>
+      <details key="end" value="3092"/>
+      <details key="line" value="70"/>
+    </eAnnotations>
+    <eAnnotations source="positions.185" references="/0/generateProxyResource/aProxyResource">
+      <details key="start" value="271"/>
+      <details key="end" value="301"/>
+      <details key="line" value="7"/>
+    </eAnnotations>
+  </ecore:EAnnotation>
+</xmi:XMI>

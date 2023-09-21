@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mtl="http://www.eclipse.org/acceleo/mtl/3.0" xmlns:ocl.ecore="http://www.eclipse.org/ocl/1.1.0/Ecore">
+  <mtl:Module name="generateSystem" nsURI="org::eclipse::acceleo::module::sample::proxy::generateSystem" startHeaderPosition="29" endHeaderPosition="149">
+    <input>
+      <takesTypesFrom href="http://www.mdse.org/proxy#/"/>
+    </input>
+    <imports href="generateCoap.emtl#/0"/>
+    <imports href="generateGateway.emtl#/0"/>
+    <imports href="generateMqtt.emtl#/0"/>
+    <ownedModuleElement xsi:type="mtl:Template" name="generateSystem" visibility="Public" main="true">
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;project xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&#xA;         xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;&#xA;         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;>&#xA;    &lt;modelVersion>4.0.0&lt;/modelVersion>&#xA;    &lt;artifactId>gateway&lt;/artifactId>&#xA;    &lt;groupId>org.example&lt;/groupId>&#xA;    &lt;version>1.0-SNAPSHOT&lt;/version>&#xA;    &lt;packaging>jar&lt;/packaging>&#xA;    &lt;name>consoleApp&lt;/name>&#xA;    &lt;properties>&#xA;        &lt;project.build.sourceEncoding>UTF-8&lt;/project.build.sourceEncoding>&#xA;        &lt;kotlin.code.style>official&lt;/kotlin.code.style>&#xA;        &lt;kotlin.compiler.jvmTarget>1.8&lt;/kotlin.compiler.jvmTarget>&#xA;    &lt;/properties>&#xA;    &lt;repositories>&#xA;        &lt;repository>&#xA;            &lt;id>mavenCentral&lt;/id>&#xA;            &lt;url>https://repo1.maven.org/maven2/&lt;/url>&#xA;        &lt;/repository>&#xA;    &lt;/repositories>&#xA;    &lt;build>&#xA;        &lt;sourceDirectory>src/main/kotlin&lt;/sourceDirectory>&#xA;        &lt;plugins>&#xA;            &lt;plugin>&#xA;                &lt;groupId>org.jetbrains.kotlin&lt;/groupId>&#xA;                &lt;artifactId>kotlin-maven-plugin&lt;/artifactId>&#xA;                &lt;version>1.7.21&lt;/version>&#xA;                &lt;executions>&#xA;                    &lt;execution>&#xA;                        &lt;id>compile&lt;/id>&#xA;                        &lt;phase>compile&lt;/phase>&#xA;                        &lt;goals>&#xA;                            &lt;goal>compile&lt;/goal>&#xA;                        &lt;/goals>&#xA;                    &lt;/execution>&#xA;                &lt;/executions>&#xA;            &lt;/plugin>&#xA;            &lt;plugin>&#xA;                &lt;groupId>org.codehaus.mojo&lt;/groupId>&#xA;                &lt;artifactId>exec-maven-plugin&lt;/artifactId>&#xA;                &lt;version>1.6.0&lt;/version>&#xA;                &lt;configuration>&#xA;                    &lt;mainClass>MainKt&lt;/mainClass>&#xA;                &lt;/configuration>&#xA;            &lt;/plugin>&#xA;        &lt;/plugins>&#xA;    &lt;/build>&#xA;    &lt;dependencies>&#xA;        &lt;dependency>&#xA;            &lt;groupId>org.jetbrains.kotlin&lt;/groupId>&#xA;            &lt;artifactId>kotlin-stdlib-jdk8&lt;/artifactId>&#xA;            &lt;version>1.7.21&lt;/version>&#xA;        &lt;/dependency>&#xA;        &lt;dependency>&#xA;            &lt;groupId>org.eclipse.californium&lt;/groupId>&#xA;            &lt;artifactId>californium-core&lt;/artifactId>&#xA;            &lt;version>3.7.0&lt;/version>&#xA;        &lt;/dependency>&#xA;        &lt;!-- https://mvnrepository.com/artifact/org.eclipse.californium/element-connector -->&#xA;        &lt;dependency>&#xA;            &lt;groupId>org.eclipse.californium&lt;/groupId>&#xA;            &lt;artifactId>element-connector&lt;/artifactId>&#xA;            &lt;version>3.7.0&lt;/version>&#xA;        &lt;/dependency>&#xA;        &lt;!-- https://mvnrepository.com/artifact/org.eclipse.californium/element-connector-tcp -->&#xA;        &lt;!-- https://mvnrepository.com/artifact/org.eclipse.californium/scandium -->&#xA;        &lt;dependency>&#xA;            &lt;groupId>org.eclipse.californium&lt;/groupId>&#xA;            &lt;artifactId>scandium&lt;/artifactId>&#xA;            &lt;version>3.7.0&lt;/version>&#xA;        &lt;/dependency>&#xA;        &lt;dependency>&#xA;            &lt;groupId>org.eclipse.paho&lt;/groupId>&#xA;            &lt;artifactId>org.eclipse.paho.mqttv5.client&lt;/artifactId>&#xA;            &lt;version>1.2.5&lt;/version>&#xA;        &lt;/dependency>&#xA;    &lt;/dependencies>&#xA;&lt;/project>&#xA;"/>
+        <fileUrl xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="pom.xml">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="import mqtt.subscribe&#xA;&#xA;fun main() {&#xA;    GatewayServer().start()&#xA;    subscribe()&#xA;}&#xA;"/>
+        <fileUrl xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/kotlin/main.kt">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="package translate.coapToGateway&#xA;"/>
+        <fileUrl xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/kotlin/translate/coapToGateway/index.kt">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="package translate.gatewayToCoap&#xA;"/>
+        <fileUrl xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/kotlin/translate/gatewayToCoap/index.kt">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="package translate.gatewayToMqtt&#xA;"/>
+        <fileUrl xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/kotlin/translate/gatewayToMqtt/index.kt">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="package translate.mqttToCoap&#xA;"/>
+        <fileUrl xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/kotlin/translate/mqttToCoap/index.kt">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <body xsi:type="mtl:TemplateInvocation">
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <definition href="generateCoap.emtl#/0/generateCoap"/>
+        <argument xsi:type="ocl.ecore:PropertyCallExp">
+          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Coap"/>
+          <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/18">
+            <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+          </source>
+          <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//System/coap"/>
+        </argument>
+      </body>
+      <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+      <body xsi:type="mtl:TemplateInvocation">
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <definition href="generateMqtt.emtl#/0/generateMqtt"/>
+        <argument xsi:type="ocl.ecore:PropertyCallExp">
+          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+          <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/19">
+            <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+          </source>
+          <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//System/mqtt"/>
+        </argument>
+      </body>
+      <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+      <body xsi:type="mtl:TemplateInvocation">
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <definition href="generateGateway.emtl#/0/generateGateway"/>
+        <argument xsi:type="ocl.ecore:PropertyCallExp">
+          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Gateway"/>
+          <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/20">
+            <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+          </source>
+          <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//System/gateway"/>
+        </argument>
+      </body>
+      <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+      <parameter name="aSystem">
+        <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+      </parameter>
+    </ownedModuleElement>
+  </mtl:Module>
+  <ecore:EPackage name="additions">
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_String_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Integer_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Real_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Real"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ecore_EObject_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eAnnotations>
+      <eOperations name="generateSystem">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL" references="/0/generateSystem"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="aSystem">
+          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="generateCoap">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL">
+          <references href="generateCoap.emtl#/0/generateCoap"/>
+        </eAnnotations>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="aCoap">
+          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Coap"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="generateGateway">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL">
+          <references href="generateGateway.emtl#/0/generateGateway"/>
+        </eAnnotations>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="aGateway">
+          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Gateway"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="generateMqtt">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL">
+          <references href="generateMqtt.emtl#/0/generateMqtt"/>
+        </eAnnotations>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="aMqtt">
+          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OclAny_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Collection(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Collection(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Sequence(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Sequence(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OrderedSet(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="proxy_System_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.mdse.org/proxy#//System"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="proxy_Coap_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.mdse.org/proxy#//Coap"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="proxy_Gateway_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.mdse.org/proxy#//Gateway"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="proxy_Mqtt_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.mdse.org/proxy#//Mqtt"/>
+      </eAnnotations>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//System"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ecore:EAnnotation source="positions">
+    <eAnnotations source="positions.0" references="/0/generateSystem">
+      <details key="start" value="297"/>
+      <details key="end" value="4203"/>
+      <details key="line" value="8"/>
+    </eAnnotations>
+    <eAnnotations source="positions.1" references="/0/generateSystem/%">
+      <details key="start" value="365"/>
+      <details key="end" value="3511"/>
+      <details key="line" value="10"/>
+    </eAnnotations>
+    <eAnnotations source="positions.2" references="/0/generateSystem/%/%">
+      <details key="start" value="400"/>
+      <details key="end" value="3504"/>
+      <details key="line" value="11"/>
+    </eAnnotations>
+    <eAnnotations source="positions.3" references="/0/generateSystem/%/%.1">
+      <details key="start" value="372"/>
+      <details key="end" value="381"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.4" references="/0/generateSystem/%/%.2">
+      <details key="start" value="390"/>
+      <details key="end" value="397"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.5" references="/0/generateSystem/%.1">
+      <details key="start" value="3512"/>
+      <details key="end" value="3653"/>
+      <details key="line" value="91"/>
+    </eAnnotations>
+    <eAnnotations source="positions.6" references="/0/generateSystem/%.1/%">
+      <details key="start" value="3564"/>
+      <details key="end" value="3646"/>
+      <details key="line" value="92"/>
+    </eAnnotations>
+    <eAnnotations source="positions.7" references="/0/generateSystem/%.1/%.1">
+      <details key="start" value="3519"/>
+      <details key="end" value="3545"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.8" references="/0/generateSystem/%.1/%.2">
+      <details key="start" value="3554"/>
+      <details key="end" value="3561"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.9" references="/0/generateSystem/%.2">
+      <details key="start" value="3654"/>
+      <details key="end" value="3770"/>
+      <details key="line" value="99"/>
+    </eAnnotations>
+    <eAnnotations source="positions.10" references="/0/generateSystem/%.2/%">
+      <details key="start" value="3731"/>
+      <details key="end" value="3763"/>
+      <details key="line" value="100"/>
+    </eAnnotations>
+    <eAnnotations source="positions.11" references="/0/generateSystem/%.2/%.1">
+      <details key="start" value="3661"/>
+      <details key="end" value="3712"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.12" references="/0/generateSystem/%.2/%.2">
+      <details key="start" value="3721"/>
+      <details key="end" value="3728"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.13" references="/0/generateSystem/%.3">
+      <details key="start" value="3771"/>
+      <details key="end" value="3887"/>
+      <details key="line" value="102"/>
+    </eAnnotations>
+    <eAnnotations source="positions.14" references="/0/generateSystem/%.3/%">
+      <details key="start" value="3848"/>
+      <details key="end" value="3880"/>
+      <details key="line" value="103"/>
+    </eAnnotations>
+    <eAnnotations source="positions.15" references="/0/generateSystem/%.3/%.1">
+      <details key="start" value="3778"/>
+      <details key="end" value="3829"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.16" references="/0/generateSystem/%.3/%.2">
+      <details key="start" value="3838"/>
+      <details key="end" value="3845"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.17" references="/0/generateSystem/%.4">
+      <details key="start" value="3888"/>
+      <details key="end" value="4004"/>
+      <details key="line" value="105"/>
+    </eAnnotations>
+    <eAnnotations source="positions.18" references="/0/generateSystem/%.4/%">
+      <details key="start" value="3965"/>
+      <details key="end" value="3997"/>
+      <details key="line" value="106"/>
+    </eAnnotations>
+    <eAnnotations source="positions.19" references="/0/generateSystem/%.4/%.1">
+      <details key="start" value="3895"/>
+      <details key="end" value="3946"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.20" references="/0/generateSystem/%.4/%.2">
+      <details key="start" value="3955"/>
+      <details key="end" value="3962"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.21" references="/0/generateSystem/%.5">
+      <details key="start" value="4005"/>
+      <details key="end" value="4115"/>
+      <details key="line" value="108"/>
+    </eAnnotations>
+    <eAnnotations source="positions.22" references="/0/generateSystem/%.5/%">
+      <details key="start" value="4079"/>
+      <details key="end" value="4108"/>
+      <details key="line" value="109"/>
+    </eAnnotations>
+    <eAnnotations source="positions.23" references="/0/generateSystem/%.5/%.1">
+      <details key="start" value="4012"/>
+      <details key="end" value="4060"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.24" references="/0/generateSystem/%.5/%.2">
+      <details key="start" value="4069"/>
+      <details key="end" value="4076"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.25" references="/0/generateSystem/%.6">
+      <details key="start" value="4117"/>
+      <details key="end" value="4135"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.26" references="/0/generateSystem/%.6/%">
+      <details key="start" value="4130"/>
+      <details key="end" value="4134"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.27" references="/0/generateSystem/%.6/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.28" references="/0/generateSystem/%.7">
+      <details key="start" value="4138"/>
+      <details key="end" value="4139"/>
+      <details key="line" value="112"/>
+    </eAnnotations>
+    <eAnnotations source="positions.29" references="/0/generateSystem/%.8">
+      <details key="start" value="4140"/>
+      <details key="end" value="4158"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.30" references="/0/generateSystem/%.8/%">
+      <details key="start" value="4153"/>
+      <details key="end" value="4157"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.31" references="/0/generateSystem/%.8/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.32" references="/0/generateSystem/%.9">
+      <details key="start" value="4161"/>
+      <details key="end" value="4162"/>
+      <details key="line" value="113"/>
+    </eAnnotations>
+    <eAnnotations source="positions.33" references="/0/generateSystem/%.10">
+      <details key="start" value="4163"/>
+      <details key="end" value="4187"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.34" references="/0/generateSystem/%.10/%">
+      <details key="start" value="4179"/>
+      <details key="end" value="4186"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.35" references="/0/generateSystem/%.10/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.36" references="/0/generateSystem/%.11">
+      <details key="start" value="4190"/>
+      <details key="end" value="4191"/>
+      <details key="line" value="114"/>
+    </eAnnotations>
+    <eAnnotations source="positions.37" references="/0/generateSystem/aSystem">
+      <details key="start" value="329"/>
+      <details key="end" value="345"/>
+      <details key="line" value="8"/>
+    </eAnnotations>
+  </ecore:EAnnotation>
+</xmi:XMI>

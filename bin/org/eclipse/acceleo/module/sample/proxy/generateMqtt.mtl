@@ -1,0 +1,74 @@
+[comment encoding = UTF-8 /]
+[module generateMqtt('http://www.mdse.org/proxy')]
+
+[import org::eclipse::acceleo::module::sample::proxy::toCamel /]
+[import org::eclipse::acceleo::module::sample::proxy::generateMqttMessage /]
+
+
+[template public generateMqtt(aMqtt : Mqtt)]
+
+[file ('/src/main/kotlin/mqtt/client.kt', false, 'UTF-8')]
+package mqtt
+
+import org.eclipse.paho.mqttv5.client.MqttClient
+import org.eclipse.paho.mqttv5.client.MqttConnectionOptions
+import org.eclipse.paho.mqttv5.client.persist.MemoryPersistence
+
+val mqttClient: MqttClient by lazy {
+    val mqttUri = "[host /]:[port /]"
+    val clientId = "gateway"
+    MqttClient(mqttUri, clientId, MemoryPersistence()).apply {
+        val options = MqttConnectionOptions()
+        options.connectionTimeout = 60
+        options.keepAliveInterval = 60
+        connect(options)
+    }
+}
+[/file]
+[for (message)]
+[generateMqttMessage() /]
+[/for]
+[file ('/src/main/kotlin/mqtt/topics.kt', false, 'UTF-8')]
+package mqtt
+
+import mqtt.handler.*
+import org.eclipse.paho.mqttv5.client.IMqttToken
+import org.eclipse.paho.mqttv5.client.MqttCallback
+import org.eclipse.paho.mqttv5.client.MqttDisconnectResponse
+import org.eclipse.paho.mqttv5.common.MqttException
+import org.eclipse.paho.mqttv5.common.MqttMessage
+import org.eclipse.paho.mqttv5.common.packet.MqttProperties
+
+fun subscribe() {
+    mqttClient.setCallback(object : MqttCallback {
+        override fun disconnected(p0: MqttDisconnectResponse?) {
+        }
+
+        override fun mqttErrorOccurred(p0: MqttException?) {
+        }
+
+        override fun messageArrived(topic: String?, p1: MqttMessage?) {
+            val message = String(p1?.payload ?: byteArrayOf())
+            when (topic) {
+			[for (message) separator('\n')]
+				[let topic: String = topic.toCamelHump().toLowerFirst()]
+                "[topic /]" -> [topic /](message)
+				[/let]
+			[/for]
+            }
+        }
+
+        override fun deliveryComplete(p0: IMqttToken?) {
+        }
+
+        override fun connectComplete(p0: Boolean, p1: String?) {
+        }
+
+        override fun authPacketArrived(p0: Int, p1: MqttProperties?) {
+        }
+
+    })
+    mqttClient.subscribe(arrayOf([for (message) separator(', ')]"[topic.toCamelHump().toLowerFirst() /]"[/for]), intArrayOf([for (message) separator(', ')]0[/for]))
+}
+[/file]
+[/template]

@@ -1,0 +1,15 @@
+[comment encoding = UTF-8 /]
+[module generateTranslator('http://www.mdse.org/proxy')]
+[import org::eclipse::acceleo::module::sample::proxy::toCamel /]
+
+
+[template public generateTranslator(path: String, source: String, target: String)]
+[let source: String = source.toCamelHump().toLowerFirst()]
+[file (path, true, 'UTF-8')]
+fun [source /]To[target.toUpperFirst() /]([source /]: String): String {
+    // define how target is computed from source
+    return [source /]
+} 
+[/file]
+[/let]
+[/template]

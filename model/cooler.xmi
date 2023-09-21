@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy:System
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:proxy="http://www.mdse.org/proxy"
+    xsi:schemaLocation="http://www.mdse.org/proxy ../metamodel/proxy.ecore">
+  <mqtt host="tcp://localhost"
+      port="1883">
+    <message
+        topic="temperature"
+        write="//@coap/@resources.0/@write"/>
+  </mqtt>
+  <gateway host="coap://localhost"
+      port="30456">
+    <resources
+        name="cooler">
+      <read
+          proxyRead="//@coap/@resources.0/@read"/>
+      <write
+          proxyWrite="//@coap/@resources.0/@write"
+          publish="temperature"/>
+    </resources>
+  </gateway>
+  <coap host="coap://localhost"
+      port="5683">
+    <resources
+        name="cooler">
+      <read/>
+      <write/>
+    </resources>
+  </coap>
+</proxy:System>

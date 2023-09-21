@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="proxy" nsURI="http://www.mdse.org/proxy" nsPrefix="proxy">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="Device">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="host" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="port" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Coap" eSuperTypes="#//Device">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resources" upperBound="-1"
+        eType="#//CoapResource" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Gateway" eSuperTypes="#//Device">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resources" upperBound="-1"
+        eType="#//ProxyResource" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Mqtt" eSuperTypes="#//Device">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="message" upperBound="-1"
+        eType="#//MqttMessage" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CoapResource">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="read" lowerBound="1" eType="#//CoapReadEndpoint"
+        containment="true" eOpposite="#//CoapReadEndpoint/coapResource"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="write" lowerBound="1" eType="#//CoapWriteEndpoint"
+        containment="true" eOpposite="#//CoapWriteEndpoint/coapResource"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MqttMessage">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="topic" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="write" upperBound="-1"
+        eType="#//CoapWriteEndpoint"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CoapWriteMethod">
+    <eLiterals name="POST" value="1"/>
+    <eLiterals name="PUT" value="2"/>
+    <eLiterals name="PATCH" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProxyResource">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="read" lowerBound="1" eType="#//ProxyReadEndpoint"
+        containment="true" eOpposite="#//ProxyReadEndpoint/proxyResource"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="write" lowerBound="1" eType="#//ProxyWriteEndpoint"
+        containment="true" eOpposite="#//ProxyWriteEndpoint/proxyResource"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CoapReadEndpoint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coapResource" lowerBound="1"
+        eType="#//CoapResource" eOpposite="#//CoapResource/read" eKeys="#//CoapResource/name"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProxyReadEndpoint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="proxyRead" lowerBound="1"
+        eType="#//CoapReadEndpoint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="proxyResource" lowerBound="1"
+        eType="#//ProxyResource" eOpposite="#//ProxyResource/read" eKeys="#//ProxyResource/name"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CoapWriteEndpoint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="method" lowerBound="1"
+        eType="#//CoapWriteMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coapResource" lowerBound="1"
+        eType="#//CoapResource" eOpposite="#//CoapResource/write" eKeys="#//CoapResource/name"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProxyWriteEndpoint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="proxyWrite" upperBound="-1"
+        eType="#//CoapWriteEndpoint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="publish" upperBound="-1"
+        eType="#//MqttMessage"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="method" lowerBound="1"
+        eType="#//CoapWriteMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="proxyResource" lowerBound="1"
+        eType="#//ProxyResource" eOpposite="#//ProxyResource/write" eKeys="#//ProxyResource/name"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="System">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mqtt" lowerBound="1" eType="#//Mqtt"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="gateway" lowerBound="1"
+        eType="#//Gateway" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coap" lowerBound="1" eType="#//Coap"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

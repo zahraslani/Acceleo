@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/org.eclipse.sirius.sample.proxy/src-gen" creationIcons="false"
+    editDirectory="/org.eclipse.sirius.sample.proxy.edit/src-gen" editorDirectory="/org.eclipse.sirius.sample.proxy.editor/src-gen"
+    modelPluginID="org.eclipse.sirius.sample.proxy" modelName="Proxy" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>proxy.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Proxy" basePackage="org.eclipse.sirius.sample" disposableProviderFactory="true"
+      ecorePackage="proxy.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="proxy.ecore#//CoapWriteMethod">
+      <genEnumLiterals ecoreEnumLiteral="proxy.ecore#//CoapWriteMethod/POST"/>
+      <genEnumLiterals ecoreEnumLiteral="proxy.ecore#//CoapWriteMethod/PUT"/>
+      <genEnumLiterals ecoreEnumLiteral="proxy.ecore#//CoapWriteMethod/PATCH"/>
+    </genEnums>
+    <genClasses ecoreClass="proxy.ecore#//Device">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute proxy.ecore#//Device/host"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute proxy.ecore#//Device/port"/>
+    </genClasses>
+    <genClasses ecoreClass="proxy.ecore#//Coap">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference proxy.ecore#//Coap/resources"/>
+    </genClasses>
+    <genClasses ecoreClass="proxy.ecore#//Gateway">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference proxy.ecore#//Gateway/resources"/>
+    </genClasses>
+    <genClasses ecoreClass="proxy.ecore#//Mqtt">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference proxy.ecore#//Mqtt/message"/>
+    </genClasses>
+    <genClasses ecoreClass="proxy.ecore#//CoapResource">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute proxy.ecore#//CoapResource/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference proxy.ecore#//CoapResource/read"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference proxy.ecore#//CoapResource/write"/>
+    </genClasses>
+    <genClasses ecoreClass="proxy.ecore#//MqttMessage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute proxy.ecore#//MqttMessage/topic"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference proxy.ecore#//MqttMessage/write"/>
+    </genClasses>
+    <genClasses ecoreClass="proxy.ecore#//ProxyResource">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute proxy.ecore#//ProxyResource/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference proxy.ecore#//ProxyResource/read"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference proxy.ecore#//ProxyResource/write"/>
+    </genClasses>
+    <genClasses ecoreClass="proxy.ecore#//CoapReadEndpoint">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference proxy.ecore#//CoapReadEndpoint/coapResource"/>
+    </genClasses>
+    <genClasses ecoreClass="proxy.ecore#//ProxyReadEndpoint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference proxy.ecore#//ProxyReadEndpoint/proxyRead"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference proxy.ecore#//ProxyReadEndpoint/proxyResource"/>
+    </genClasses>
+    <genClasses ecoreClass="proxy.ecore#//CoapWriteEndpoint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute proxy.ecore#//CoapWriteEndpoint/method"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference proxy.ecore#//CoapWriteEndpoint/coapResource"/>
+    </genClasses>
+    <genClasses ecoreClass="proxy.ecore#//ProxyWriteEndpoint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference proxy.ecore#//ProxyWriteEndpoint/proxyWrite"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference proxy.ecore#//ProxyWriteEndpoint/publish"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute proxy.ecore#//ProxyWriteEndpoint/method"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference proxy.ecore#//ProxyWriteEndpoint/proxyResource"/>
+    </genClasses>
+    <genClasses ecoreClass="proxy.ecore#//System">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference proxy.ecore#//System/mqtt"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference proxy.ecore#//System/gateway"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference proxy.ecore#//System/coap"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

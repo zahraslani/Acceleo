@@ -1,0 +1,17 @@
+[comment encoding = UTF-8 /]
+[module generateCoap('http://www.mdse.org/proxy')]
+
+
+[template public generateCoap(aCoap : Coap)]
+[file ('/src/main/kotlin/coap/client-pool.kt', false, 'UTF-8')]
+package coap
+
+import org.eclipse.californium.core.CoapClient
+
+private val coapClientPool = mutableMapOf<String, CoapClient>()
+
+fun getClient(name: String) = coapClientPool.getOrPut(name) {
+    CoapClient("[host /]:[port /]/$name")
+}
+[/file]
+[/template]

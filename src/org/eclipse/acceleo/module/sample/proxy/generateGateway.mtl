@@ -1,0 +1,37 @@
+[comment encoding = UTF-8 /]
+[module generateGateway('http://www.mdse.org/proxy')]
+[import org::eclipse::acceleo::module::sample::proxy::toCamel /]
+[import org::eclipse::acceleo::module::sample::proxy::generateProxyResource /]
+
+
+[template public generateGateway(aGateway : Gateway)]
+[file ('/src/main/kotlin/gateway.kt', false, 'UTF-8')]
+[if (resources -> notEmpty())]
+import gateway.*
+[/if]
+import org.eclipse.californium.core.CoapServer
+import org.eclipse.californium.core.network.CoapEndpoint
+import org.eclipse.californium.elements.config.Configuration
+import org.eclipse.californium.elements.util.NetworkInterfacesUtil
+import java.net.InetSocketAddress
+
+class GatewayServer : CoapServer() {
+    init {
+        val config = Configuration.getStandard()
+        // Add an endpoint listener for each host network interface
+        for (addr in NetworkInterfacesUtil.getNetworkInterfaces()) {
+            val bindToAddress = InetSocketAddress(addr, [port /])
+            val builder = CoapEndpoint.builder()
+            builder.setInetSocketAddress(bindToAddress)
+            builder.setConfiguration(config)
+            addEndpoint(builder.build())
+        }
+        add([for (resources) separator(', ')][name.toCamelHump().toUpperFirst() /]()[/for])
+    }
+}
+[/file]
+[for (resources)]
+[generateProxyResource() /]
+[/for]
+
+[/template]

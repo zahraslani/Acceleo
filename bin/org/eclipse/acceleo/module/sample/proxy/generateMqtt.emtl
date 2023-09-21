@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mtl="http://www.eclipse.org/acceleo/mtl/3.0" xmlns:ocl.ecore="http://www.eclipse.org/ocl/1.1.0/Ecore">
+  <mtl:Module name="generateMqtt" nsURI="org::eclipse::acceleo::module::sample::proxy::generateMqtt" startHeaderPosition="29" endHeaderPosition="143">
+    <input>
+      <takesTypesFrom href="http://www.mdse.org/proxy#/"/>
+    </input>
+    <imports href="toCamel.emtl#/0"/>
+    <imports href="generateMqttMessage.emtl#/0"/>
+    <ownedModuleElement xsi:type="mtl:Template" name="generateMqtt" visibility="Public">
+      <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="package mqtt&#xA;&#xA;import org.eclipse.paho.mqttv5.client.MqttClient&#xA;import org.eclipse.paho.mqttv5.client.MqttConnectionOptions&#xA;import org.eclipse.paho.mqttv5.client.persist.MemoryPersistence&#xA;&#xA;val mqttClient: MqttClient by lazy {&#xA;    val mqttUri = &quot;"/>
+        <body xsi:type="ocl.ecore:PropertyCallExp">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/8">
+            <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+          </source>
+          <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//Device/host"/>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=":"/>
+        <body xsi:type="ocl.ecore:PropertyCallExp">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+          <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/9">
+            <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+          </source>
+          <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//Device/port"/>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&quot;&#xA;    val clientId = &quot;gateway&quot;&#xA;    MqttClient(mqttUri, clientId, MemoryPersistence()).apply {&#xA;        val options = MqttConnectionOptions()&#xA;        options.connectionTimeout = 60&#xA;        options.keepAliveInterval = 60&#xA;        connect(options)&#xA;    }&#xA;}&#xA;"/>
+        <fileUrl xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/kotlin/mqtt/client.kt">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <body xsi:type="mtl:ForBlock">
+        <body xsi:type="mtl:TemplateInvocation">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          <definition href="generateMqttMessage.emtl#/0/generateMqttMessage"/>
+          <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/13">
+            <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+          </argument>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+        <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/10/OrderedSet(MqttMessage)">
+          <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/11">
+            <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+          </source>
+          <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//Mqtt/message"/>
+        </iterSet>
+      </body>
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="package mqtt&#xA;&#xA;import mqtt.handler.*&#xA;import org.eclipse.paho.mqttv5.client.IMqttToken&#xA;import org.eclipse.paho.mqttv5.client.MqttCallback&#xA;import org.eclipse.paho.mqttv5.client.MqttDisconnectResponse&#xA;import org.eclipse.paho.mqttv5.common.MqttException&#xA;import org.eclipse.paho.mqttv5.common.MqttMessage&#xA;import org.eclipse.paho.mqttv5.common.packet.MqttProperties&#xA;&#xA;fun subscribe() {&#xA;    mqttClient.setCallback(object : MqttCallback {&#xA;        override fun disconnected(p0: MqttDisconnectResponse?) {&#xA;        }&#xA;&#xA;        override fun mqttErrorOccurred(p0: MqttException?) {&#xA;        }&#xA;&#xA;        override fun messageArrived(topic: String?, p1: MqttMessage?) {&#xA;            val message = String(p1?.payload ?: byteArrayOf())&#xA;            when (topic) {&#xA;"/>
+        <body xsi:type="mtl:ForBlock">
+          <body xsi:type="mtl:LetBlock">
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="                &quot;"/>
+            <body xsi:type="ocl.ecore:VariableExp" name="topic" referredVariable="/0/generateMqtt/%.3/%.1/%/topic.2">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&quot; -> "/>
+            <body xsi:type="ocl.ecore:VariableExp" name="topic" referredVariable="/0/generateMqtt/%.3/%.1/%/topic.2">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            </body>
+            <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="(message)&#xA;"/>
+            <letVariable name="topic">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <initExpression xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toLowerFirst">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="mtl:QueryInvocation">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <definition href="toCamel.emtl#/0/toCamelHump"/>
+                  <argument xsi:type="ocl.ecore:PropertyCallExp">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/21">
+                      <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//MqttMessage/topic"/>
+                  </argument>
+                </source>
+              </initExpression>
+            </letVariable>
+          </body>
+          <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/10/OrderedSet(MqttMessage)">
+            <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/18">
+              <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+            </source>
+            <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//Mqtt/message"/>
+          </iterSet>
+          <each xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          </each>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="            }&#xA;        }&#xA;&#xA;        override fun deliveryComplete(p0: IMqttToken?) {&#xA;        }&#xA;&#xA;        override fun connectComplete(p0: Boolean, p1: String?) {&#xA;        }&#xA;&#xA;        override fun authPacketArrived(p0: Int, p1: MqttProperties?) {&#xA;        }&#xA;&#xA;    })&#xA;    mqttClient.subscribe(arrayOf("/>
+        <body xsi:type="mtl:ForBlock">
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&quot;"/>
+          <body xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/toLowerFirst">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="mtl:QueryInvocation">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <definition href="toCamel.emtl#/0/toCamelHump"/>
+              <argument xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/29">
+                  <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.mdse.org/proxy#//MqttMessage/topic"/>
+              </argument>
+            </source>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&quot;"/>
+          <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/10/OrderedSet(MqttMessage)">
+            <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/26">
+              <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+            </source>
+            <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//Mqtt/message"/>
+          </iterSet>
+          <each xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=", ">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          </each>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="), intArrayOf("/>
+        <body xsi:type="mtl:ForBlock">
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="0"/>
+          <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/10/OrderedSet(MqttMessage)">
+            <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/32">
+              <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+            </source>
+            <referredProperty xsi:type="ecore:EReference" href="http://www.mdse.org/proxy#//Mqtt/message"/>
+          </iterSet>
+          <each xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=", ">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          </each>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="))&#xA;}&#xA;"/>
+        <fileUrl xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/kotlin/mqtt/topics.kt">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <parameter name="aMqtt">
+        <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+      </parameter>
+    </ownedModuleElement>
+  </mtl:Module>
+  <ecore:EPackage name="additions">
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_String_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eAnnotations>
+      <eOperations name="toLowerFirst">
+        <eAnnotations source="MTL"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Integer_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Real_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Real"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ecore_EObject_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eAnnotations>
+      <eOperations name="generateMqtt">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL" references="/0/generateMqtt"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="aMqtt">
+          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="toCamelHump">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL">
+          <references href="toCamel.emtl#/0/toCamelHump"/>
+        </eAnnotations>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="arg0">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="generateMqttMessage">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL">
+          <references href="generateMqttMessage.emtl#/0/generateMqttMessage"/>
+        </eAnnotations>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="aMqttMessage">
+          <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OclAny_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Collection(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Collection(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Sequence(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Sequence(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OrderedSet(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="proxy_Mqtt_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.mdse.org/proxy#//Mqtt"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="proxy_MqttMessage_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.mdse.org/proxy#//MqttMessage"/>
+      </eAnnotations>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ecore:EPackage name="collections">
+    <eClassifiers xsi:type="ocl.ecore:OrderedSetType" name="OrderedSet(MqttMessage)" instanceClassName="java.util.LinkedHashSet">
+      <elementType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//MqttMessage"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.mdse.org/proxy#//Mqtt"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ecore:EAnnotation source="positions">
+    <eAnnotations source="positions.0" references="/0/generateMqtt">
+      <details key="start" value="225"/>
+      <details key="end" value="2308"/>
+      <details key="line" value="8"/>
+    </eAnnotations>
+    <eAnnotations source="positions.1" references="/0/generateMqtt/%">
+      <details key="start" value="270"/>
+      <details key="end" value="271"/>
+      <details key="line" value="9"/>
+    </eAnnotations>
+    <eAnnotations source="positions.2" references="/0/generateMqtt/%.1">
+      <details key="start" value="271"/>
+      <details key="end" value="849"/>
+      <details key="line" value="10"/>
+    </eAnnotations>
+    <eAnnotations source="positions.3" references="/0/generateMqtt/%.1/%">
+      <details key="start" value="330"/>
+      <details key="end" value="574"/>
+      <details key="line" value="11"/>
+    </eAnnotations>
+    <eAnnotations source="positions.4" references="/0/generateMqtt/%.1/%.1">
+      <details key="start" value="575"/>
+      <details key="end" value="579"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.5" references="/0/generateMqtt/%.1/%.1/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.6" references="/0/generateMqtt/%.1/%.2">
+      <details key="start" value="582"/>
+      <details key="end" value="583"/>
+      <details key="line" value="18"/>
+    </eAnnotations>
+    <eAnnotations source="positions.7" references="/0/generateMqtt/%.1/%.3">
+      <details key="start" value="584"/>
+      <details key="end" value="588"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.8" references="/0/generateMqtt/%.1/%.3/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.9" references="/0/generateMqtt/%.1/%.4">
+      <details key="start" value="591"/>
+      <details key="end" value="842"/>
+      <details key="line" value="18"/>
+    </eAnnotations>
+    <eAnnotations source="positions.10" references="/0/generateMqtt/%.1/%.5">
+      <details key="start" value="278"/>
+      <details key="end" value="311"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.11" references="/0/generateMqtt/%.1/%.6">
+      <details key="start" value="320"/>
+      <details key="end" value="327"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.12" references="/0/generateMqtt/%.2">
+      <details key="start" value="850"/>
+      <details key="end" value="898"/>
+      <details key="line" value="28"/>
+    </eAnnotations>
+    <eAnnotations source="positions.13" references="/0/generateMqtt/%.2/%">
+      <details key="start" value="867"/>
+      <details key="end" value="888"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.14" references="/0/generateMqtt/%.2/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.15" references="/0/generateMqtt/%.2/%.1">
+      <details key="start" value="891"/>
+      <details key="end" value="892"/>
+      <details key="line" value="30"/>
+    </eAnnotations>
+    <eAnnotations source="positions.16" references="/0/generateMqtt/%.2/%.2">
+      <details key="start" value="856"/>
+      <details key="end" value="863"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.17" references="/0/generateMqtt/%.2/%.2/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.18" references="/0/generateMqtt/%.3">
+      <details key="start" value="899"/>
+      <details key="end" value="2296"/>
+      <details key="line" value="31"/>
+    </eAnnotations>
+    <eAnnotations source="positions.19" references="/0/generateMqtt/%.3/%">
+      <details key="start" value="958"/>
+      <details key="end" value="1697"/>
+      <details key="line" value="32"/>
+    </eAnnotations>
+    <eAnnotations source="positions.20" references="/0/generateMqtt/%.3/%.1">
+      <details key="start" value="1700"/>
+      <details key="end" value="1863"/>
+      <details key="line" value="53"/>
+    </eAnnotations>
+    <eAnnotations source="positions.21" references="/0/generateMqtt/%.3/%.1/%">
+      <details key="start" value="1736"/>
+      <details key="end" value="1853"/>
+      <details key="line" value="54"/>
+    </eAnnotations>
+    <eAnnotations source="positions.22" references="/0/generateMqtt/%.3/%.1/%/%">
+      <details key="start" value="1793"/>
+      <details key="end" value="1810"/>
+      <details key="line" value="55"/>
+    </eAnnotations>
+    <eAnnotations source="positions.23" references="/0/generateMqtt/%.3/%.1/%/topic">
+      <details key="start" value="1811"/>
+      <details key="end" value="1816"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.24" references="/0/generateMqtt/%.3/%.1/%/%.1">
+      <details key="start" value="1819"/>
+      <details key="end" value="1824"/>
+      <details key="line" value="55"/>
+    </eAnnotations>
+    <eAnnotations source="positions.25" references="/0/generateMqtt/%.3/%.1/%/topic.1">
+      <details key="start" value="1825"/>
+      <details key="end" value="1830"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.26" references="/0/generateMqtt/%.3/%.1/%/%.2">
+      <details key="start" value="1833"/>
+      <details key="end" value="1843"/>
+      <details key="line" value="55"/>
+    </eAnnotations>
+    <eAnnotations source="positions.27" references="/0/generateMqtt/%.3/%.1/%/topic.2">
+      <details key="start" value="1741"/>
+      <details key="end" value="1791"/>
+      <details key="line" value="54"/>
+    </eAnnotations>
+    <eAnnotations source="positions.28" references="/0/generateMqtt/%.3/%.1/%/topic.2/%">
+      <details key="start" value="1758"/>
+      <details key="end" value="1792"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.29" references="/0/generateMqtt/%.3/%.1/%/topic.2/%/%">
+      <details key="start" value="1758"/>
+      <details key="end" value="1777"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.30" references="/0/generateMqtt/%.3/%.1/%/topic.2/%/%/%">
+      <details key="start" value="1758"/>
+      <details key="end" value="1763"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.31" references="/0/generateMqtt/%.3/%.1/%/topic.2/%/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.32" references="/0/generateMqtt/%.3/%.1/%.1">
+      <details key="start" value="1706"/>
+      <details key="end" value="1713"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.33" references="/0/generateMqtt/%.3/%.1/%.1/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.34" references="/0/generateMqtt/%.3/%.1/%.2">
+      <details key="start" value="1725"/>
+      <details key="end" value="1729"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.35" references="/0/generateMqtt/%.3/%.2">
+      <details key="start" value="1864"/>
+      <details key="end" value="2155"/>
+      <details key="line" value="58"/>
+    </eAnnotations>
+    <eAnnotations source="positions.36" references="/0/generateMqtt/%.3/%.3">
+      <details key="start" value="2155"/>
+      <details key="end" value="2232"/>
+      <details key="line" value="71"/>
+    </eAnnotations>
+    <eAnnotations source="positions.37" references="/0/generateMqtt/%.3/%.3/%">
+      <details key="start" value="2186"/>
+      <details key="end" value="2187"/>
+      <details key="line" value="71"/>
+    </eAnnotations>
+    <eAnnotations source="positions.38" references="/0/generateMqtt/%.3/%.3/%.1">
+      <details key="start" value="2188"/>
+      <details key="end" value="2222"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.39" references="/0/generateMqtt/%.3/%.3/%.1/%">
+      <details key="start" value="2188"/>
+      <details key="end" value="2207"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.40" references="/0/generateMqtt/%.3/%.3/%.1/%/%">
+      <details key="start" value="2188"/>
+      <details key="end" value="2193"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.41" references="/0/generateMqtt/%.3/%.3/%.1/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.42" references="/0/generateMqtt/%.3/%.3/%.2">
+      <details key="start" value="2225"/>
+      <details key="end" value="2226"/>
+      <details key="line" value="71"/>
+    </eAnnotations>
+    <eAnnotations source="positions.43" references="/0/generateMqtt/%.3/%.3/%.3">
+      <details key="start" value="2161"/>
+      <details key="end" value="2168"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.44" references="/0/generateMqtt/%.3/%.3/%.3/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.45" references="/0/generateMqtt/%.3/%.3/%.4">
+      <details key="start" value="2180"/>
+      <details key="end" value="2184"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.46" references="/0/generateMqtt/%.3/%.4">
+      <details key="start" value="2232"/>
+      <details key="end" value="2246"/>
+      <details key="line" value="71"/>
+    </eAnnotations>
+    <eAnnotations source="positions.47" references="/0/generateMqtt/%.3/%.5">
+      <details key="start" value="2246"/>
+      <details key="end" value="2284"/>
+      <details key="line" value="71"/>
+    </eAnnotations>
+    <eAnnotations source="positions.48" references="/0/generateMqtt/%.3/%.5/%">
+      <details key="start" value="2277"/>
+      <details key="end" value="2278"/>
+      <details key="line" value="71"/>
+    </eAnnotations>
+    <eAnnotations source="positions.49" references="/0/generateMqtt/%.3/%.5/%.1">
+      <details key="start" value="2252"/>
+      <details key="end" value="2259"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.50" references="/0/generateMqtt/%.3/%.5/%.1/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.51" references="/0/generateMqtt/%.3/%.5/%.2">
+      <details key="start" value="2271"/>
+      <details key="end" value="2275"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.52" references="/0/generateMqtt/%.3/%.6">
+      <details key="start" value="2284"/>
+      <details key="end" value="2289"/>
+      <details key="line" value="71"/>
+    </eAnnotations>
+    <eAnnotations source="positions.53" references="/0/generateMqtt/%.3/%.7">
+      <details key="start" value="906"/>
+      <details key="end" value="939"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.54" references="/0/generateMqtt/%.3/%.8">
+      <details key="start" value="948"/>
+      <details key="end" value="955"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.55" references="/0/generateMqtt/aMqtt">
+      <details key="start" value="255"/>
+      <details key="end" value="267"/>
+      <details key="line" value="8"/>
+    </eAnnotations>
+  </ecore:EAnnotation>
+</xmi:XMI>

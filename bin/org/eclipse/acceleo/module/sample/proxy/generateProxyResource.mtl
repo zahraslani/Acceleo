@@ -1,0 +1,71 @@
+[comment encoding = UTF-8 /]
+[module generateProxyResource('http://www.mdse.org/proxy')]
+[import org::eclipse::acceleo::module::sample::proxy::toCamel /]
+[import org::eclipse::acceleo::module::sample::proxy::generateTranslator /]
+
+
+[template public generateProxyResource(aProxyResource : ProxyResource)]
+[let resourceName: String = name.toCamelHump().toLowerFirst()]
+
+[file ('/src/main/kotlin/gateway/' + resourceName + '.kt', false, 'UTF-8')]
+package gateway
+
+import coap.getClient
+import mqtt.mqttClient
+import org.eclipse.californium.core.CoapHandler
+import org.eclipse.californium.core.CoapResource
+import org.eclipse.californium.core.CoapResponse
+import org.eclipse.californium.core.server.resources.CoapExchange
+import org.eclipse.paho.mqttv5.common.MqttMessage
+[let readTranslator: String = read.proxyRead.coapResource.name.toCamelHump().toLowerFirst() + 'To' + resourceName.toUpperFirst()]
+import translate.coapToGateway.[readTranslator /] as cg[readTranslator.toUpperFirst() /]
+[generateTranslator('/src/main/kotlin/translate/coapToGateway/index.kt', read.proxyRead.coapResource.name, resourceName) /]
+[for (write.publish) separator('\n')]
+	[let translator: String = resourceName + 'To' + topic.toCamelHump().toUpperFirst()]
+import translate.gatewayToMqtt.[translator /] as gm[translator.toUpperFirst() /]
+	[/let]
+[generateTranslator('/src/main/kotlin/translate/gatewayToMqtt/index.kt', resourceName, topic) /]
+[/for]
+[for (write.proxyWrite) separator('\n')]
+	[let translator: String = resourceName + 'To' + coapResource.name.toCamelHump().toUpperFirst()]
+import translate.gatewayToCoap.[translator /] as gc[translator.toUpperFirst() /]
+	[/let]
+[generateTranslator('/src/main/kotlin/translate/gatewayToCoap/index.kt', resourceName, coapResource.name) /]
+[/for]
+class [resourceName.toUpperFirst() /] : CoapResource("[resourceName /]") {
+    init {
+        attributes.title = name
+    }
+
+    override fun handleGET(exchange: CoapExchange?) {
+		[let readName: String = read.proxyRead.coapResource.name.toCamelHump().toLowerFirst()]
+        val [readName /] = String(getClient("[readName /]").get().payload)
+        exchange?.respond(cg[readTranslator.toUpperFirst() /]([readName /]))
+		[/let]
+    }
+
+    override fun handle[write.method /](exchange: CoapExchange?) {
+        val [resourceName /] = exchange?.requestText ?: return
+		[for (write.publish) separator('\n')]
+			[let topic: String = topic.toCamelHump().toLowerFirst()]
+        mqttClient.publish("[topic /]", MqttMessage(gm[resourceName.toUpperFirst() /]To[topic.toUpperFirst() /]([resourceName /]).toByteArray()))
+			[/let]
+		[/for]
+		[for (write.proxyWrite) separator('\n')]
+			[let coapName: String = coapResource.name.toCamelHump()]
+        getClient("[coapName.toLowerFirst() /]").[method.toString().toLowerCase() /](object : CoapHandler {
+            override fun onLoad(p0: CoapResponse?) {
+            }
+
+            override fun onError() {
+            }
+        }, gc[resourceName.toUpperFirst() /]To[coapName.toUpperFirst() /]([resourceName /]).toByteArray(), 0)
+			[/let]
+		[/for]
+    }
+}
+[/let ]
+[/file]
+[/let]
+
+[/template]
